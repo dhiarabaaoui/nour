@@ -1,32 +1,39 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios
-import './LoginForm.css'; // Make sure you have this CSS file for styling
+import axios from 'axios'; 
+import './LoginForm.css';
+import { jwtDecode } from 'jwt-decode';  // Correction ici
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');  // Add error state to display messages
-  const navigate = useNavigate();  // Initialize useNavigate for routing
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  // handleSubmit function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        email,
-        password,
-      });
+      const response = await axios.post('http://localhost:5000/api/admin/login', { email, password });
 
-      if (response.data.token) {
-        // Store token in localStorage
-        localStorage.setItem("authToken", response.data.token);
-        // Redirect to profile page or another route
-        navigate('/profile');  // Change '/profile' to the appropriate route
+      // Log the response data for debugging
+      console.log("Response received:", response.data);
+
+      const token = response.data.token;
+      if (token) {
+        // Decode the token to extract userType if needed
+        const decodedToken = jwtDecode(token);  // Utilisation de jwtDecode ici
+        console.log("Decoded Token:", decodedToken);
+
+        if (decodedToken.userType === 'admin') {
+          localStorage.setItem('authToken', token);
+          navigate('/admin-dashboard'); // Redirect to Admin dashboard
+        } else if (decodedToken.userType === 'user') {
+          localStorage.setItem('authToken', token);
+          navigate('/user-dashboard'); // Redirect to User dashboard
+        }
       } else {
-        // Display error message
-        setError(response.data.message);
+        setError('Invalid credentials');
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -37,34 +44,22 @@ function LoginForm() {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>AutiLearn</h2> {/* Changed the title */}
+        <h2>AutiLearn</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
           <div className="form-group">
             <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
 
           <button type="submit">Sign in</button>
         </form>
 
-        {error && <div className="error-message">{error}</div>}  {/* Show error if any */}
+        {error && <div className="error-message">{error}</div>}
 
         <div className="links">
           <Link to="/forgot-password">Forgot password?</Link>

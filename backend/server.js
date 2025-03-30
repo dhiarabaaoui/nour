@@ -1,9 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const adminRoutes = require("./routes/adminRoutes");
-const AdminProfileRoute = require('./routes/AdminProfileRoute'); // Assurez-vous que ce fichier existe
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');  // Routes pour utilisateurs
+const AdminProfileRoute = require('./routes/AdminProfileRoute');
 
 dotenv.config();
 
@@ -16,11 +17,11 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// ✅ Déclaration des routes
-app.use("/api/admin", adminRoutes);  // Si vous avez des routes administrateur dans adminRoutes
-app.use("/api/admin/profile", AdminProfileRoute);  // Ajout de la route AdminProfileRoute
+// Routes
+app.use("/api/admin", adminRoutes);
+app.use("/api/user", userRoutes);  // Routes pour utilisateurs
+app.use("/api/admin/profile", AdminProfileRoute);
 
-// Route par défaut pour vérifier si le backend fonctionne
 app.get("/", (req, res) => {
   res.send("Backend is running!");
 });

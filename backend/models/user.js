@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   adresse: { type: String, required: true },
   numeroTel: { type: Number, required: true },
-  userType: { type: String, enum: userTypes, required: true },
-
+  userType: { type: String, default: 'user' },
+  
   // Conditional fields for specific users
   relationAvecEnfant: {
     type: String,
