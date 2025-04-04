@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 app.use("/api/admin", adminRoutes);
-app.use("/api/user", userRoutes);  // Routes pour utilisateurs
+// app.use("/api/user", userRoutes);  // Routes pour utilisateurs
 app.use("/api/admin/profile", AdminProfileRoute);
 
 app.get("/", (req, res) => {
