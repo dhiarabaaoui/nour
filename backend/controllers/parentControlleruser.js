@@ -1,12 +1,12 @@
-const User = require('../models/user'); // Import the User model
+ const User = require('../models/user'); // Import the User model
 const bcrypt = require('bcrypt');
 
 // Function for parent signup
 const signupParent = async (req, res) => {
   const { 
     nom, prenom, email, password, adresse, numeroTel, 
-    relationAvecEnfant, nomPrenomEnf, dateNaissanceEnf, 
-    comportement, medicaments, behavior, behaviordescription 
+    relationAvecEnfant, nomPrenomEnf, dateNaissanceEnf, niveau,
+    comportement, nomEcole,  medicaments, behavior 
   } = req.body;
 
   try {
@@ -31,10 +31,10 @@ const signupParent = async (req, res) => {
       relationAvecEnfant,
       nomPrenomEnf,
       dateNaissanceEnf,
-      comportement,
+      niveau,
+      nomEcole,
       medicaments,
-      behavior,
-      behaviordescription
+      behavior
     });
 
     // Save the parent user to the database

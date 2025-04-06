@@ -1,12 +1,11 @@
 /* Style des badges de statut */
+/*
 .status-badge {
   /*display: inline-block;*/
  /* padding: 4px 8px;
   /*border-radius: 12px;
   font-size: 12px;
-  font-weight: 500;*/
-}
-
+  font-weight: 500;} */
 .status-active {
   background-color: #e6f4ea;
   color: #137333;
@@ -34,10 +33,10 @@ button {
   background-color: #e8f0fe;
   color: #1a73e8;
 }
-
+/*
 .btn-toggle:hover {
- /* background-color: #d2e3fc;*/
-}
+ /* background-color: #d2e3fc;}
+*/
 
 .btn-delete {
   background-color: #fce8e6;

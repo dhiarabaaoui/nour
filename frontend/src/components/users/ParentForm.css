@@ -3,15 +3,16 @@
   justify-content: center;
   align-items: flex-start; /* Alignement des éléments au début */
   min-height: 100vh;
-  background-color: #f7f8fc;
+  background-color: #120c0c; /* Utilisation d'une seule couleur de fond */
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  height: 100vh; 
-  overflow: auto; 
+  height: 100vh;
+  overflow: auto;
+  color: black; /* Change la couleur du texte en noir */
 }
+
 .main-title {
   text-align: center;
   color: #f5576c;
@@ -23,7 +24,7 @@
 
 
 .parent-form-container {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(245, 232, 244, 0.95);
   backdrop-filter: blur(4px);
   padding: 40px;
   border-radius: 20px;
@@ -63,11 +64,12 @@
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: 12px 15px;
   margin-top: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #0e0e0e;
   border-radius: 10px;
   font-size: 16px;
 }
@@ -78,7 +80,7 @@ textarea {
 }
 
 .error {
-  color: red;
+  color: rgb(244, 154, 210);
   font-size: 14px;
 }
 
@@ -131,4 +133,44 @@ button {
     width: 100%;
     margin-bottom: 10px;
   }
+}
+
+/* Styling for the new fields */
+.form-group select {
+  width: 100%;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-group .behavior-description {
+  margin-top: 10px;
+}
+
+.form-group .relationWithChild,
+.form-group .childLevel,
+.form-group .behavior {
+  width: 100%;
+}
+
+/* Add spacing between child-related fields */
+.child-info {
+  margin-top: 30px;
+}
+
+.child-info h3 {
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.child-info .form-row {
+  margin-bottom: 20px;
+}
+
+.child-info .form-group {
+  width: 100%;
 }

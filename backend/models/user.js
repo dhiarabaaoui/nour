@@ -1,68 +1,60 @@
 const mongoose = require('mongoose');
 
-// Enum pour les types d'utilisateurs
-const userTypes = ['parent', 'educator', 'healthcareprofessional'];
-
+// Définir le schéma de l'utilisateur
 const userSchema = new mongoose.Schema({
-  nom: { type: String, required: true },
-  prenom: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  adresse: { type: String, required: true },
-  numeroTel: { type: Number, required: true },
-  userType: { type: String, default: 'user' },
-  isActive: { type: Boolean, default: true }, // Champ ajouté pour gérer l'activation
-
-  // Champs conditionnels pour les utilisateurs spécifiques
-  relationAvecEnfant: {
-    type: String,
-    enum: ['père', 'mère'],
+  nom: { type: String, required: true },  // Prénom du parent
+  prenom: { type: String, required: true },  // Nom du parent
+  email: { type: String, required: true, unique: true },  // Email du parent
+  password: { type: String, required: true },  // Mot de passe
+  adresse: { type: String, required: true },  // Adresse du parent
+  numeroTel: { type: String, required: true },  // Numéro de téléphone
+  userType: { type: String, default: 'parent' },  // Le type d'utilisateur, ici un parent
+  isActive: { type: Boolean, default: true },  // Activer ou désactiver le compte
+  
+  // Champs spécifiques aux parents
+  relationAvecEnfant: { 
+    type: String, 
+    enum: ['Père', 'Mère'], 
     required: function() { return this.userType === 'parent'; }
   },
-  nomPrenomEnf: {
-    type: String,
+  nomPrenomEnf: { 
+    type: String, 
+    required: function() { return this.userType === 'parent'; } 
+  },
+  dateNaissanceEnf: { 
+    type: Date, 
+    required: function() { return this.userType === 'parent'; } 
+  },
+  medicaments: { 
+    type: String, 
+    required: function() { return this.userType === 'parent'; } 
+  },
+  behavior: { 
+    type: String, 
+    required: function() { return this.userType === 'parent'; } 
+  },
+  nomEcole: { 
+    type: String, 
     required: function() { return this.userType === 'parent'; }
   },
-  dateNaissanceEnf: {
-    type: Date,
-    required: function() { return this.userType === 'parent'; }
-  },
-  niveau: {
-    type: Number,
-    required: function() { return this.userType === 'parent'; }
-  },
-  comportement: {
-    type: String,
-    required: function() { return this.userType === 'parent'; }
-  },
-  nomEcole: {
-    type: String,
-    required: function() { return this.userType === 'parent'; }
-  },
-  medicaments: {
-    type: String,
-    required: function() { return this.userType === 'parent'; }
-  },
-  behavior: {
-    type: String,
-    required: function() { return this.userType === 'parent'; }
-  },
-  behaviordescription: {
-    type: String,
+  niveau: { 
+    type: String, 
     required: function() { return this.userType === 'parent'; }
   },
 
-  nombreAnneeExperience: {
-    type: Number,
+  // Champs optionnels pour d'autres types d'utilisateurs (par exemple, éducateur ou professionnel de santé)
+  nombreAnneeExperience: { 
+    type: Number, 
     required: function() { return this.userType === 'educator'; }
   },
-  specialite: {
-    type: String,
+  specialite: { 
+    type: String, 
     enum: ['pédopsychiatre', 'orthophoniste'],
     required: function() { return this.userType === 'healthcareprofessional'; }
   }
 });
 
+// Créer le modèle basé sur le schéma
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
