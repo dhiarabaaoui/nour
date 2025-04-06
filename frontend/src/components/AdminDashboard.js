@@ -1,87 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import './AdminDashboard.css';  
+import UserList from "../components/users/UserList"
+import "./AdminDashboard.css"
 
 const AdminDashboard = () => {
-  const [statistics, setStatistics] = useState(null);
-  const [recentActivities, setRecentActivities] = useState([]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("authToken"); // Récupère le token depuis le localStorage
-
-    if (!token) {
-      console.log("No token found");
-      return;  // Si pas de token, on arrête la requête
-    }
-
-    // Fetch statistics from the backend (replace with your actual API URL)
-    fetch('http://localhost:5000/api/admin/admin-statistics', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,  // Ajoute le token dans l'en-tête
-      }
-    })
-      .then(response => response.json())
-      .then(data => setStatistics(data))
-      .catch(error => console.error('Error fetching statistics:', error));
-
-    // Fetch recent activities (replace with your actual API URL)
-    fetch('http://localhost:5000/api/admin/recent-activities', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,  // Ajoute le token ici aussi
-      }
-    })
-      .then(response => response.json())
-      .then(data => setRecentActivities(data))
-      .catch(error => console.error('Error fetching recent activities:', error));
-  }, []);
-
   return (
-    <div className="dashboard-container">
-      <h1>Admin Dashboard</h1>
-      
-      {/* Statistics Section */}
-      <div className="statistics-section">
-        <h2>Statistics</h2>
-        {statistics ? (
-          <div className="statistics">
-            <div className="stat-card">
-              <h3>Total Users</h3>
-              <p>{statistics.totalUsers}</p>
-            </div>
-            <div className="stat-card">
-              <h3>Total Exercises</h3>
-              <p>{statistics.totalExercises}</p>
-            </div>
-            <div className="stat-card">
-              <h3>Active Users</h3>
-              <p>{statistics.activeUsers}</p>
-            </div>
-          </div>
-        ) : (
-          <p>Loading statistics...</p>
-        )}
-      </div>
-      
-      {/* Recent Activities Section */}
-      <div className="recent-activities-section">
-        <h2>Recent Activities</h2>
-        {recentActivities.length > 0 ? (
-          <ul className="recent-activities-list">
-            {recentActivities.map((activity, index) => (
-              <li key={index}>
-                <p><strong>{activity.user}</strong> {activity.action} at {activity.timestamp}</p>
-              </li>
-            ))}
+    <div className="admin-dashboard">
+      <div className="dashboard-sidebar">
+        {/* Contenu de la sidebar */}
+        <div className="dashboard-logo">Admin Panel</div>
+        <nav className="dashboard-nav">
+          <ul>
+            <li className="active">
+              <a href="#">
+                <span>👥</span> Utilisateurs
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span>📊</span> Statistiques
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span>⚙️</span> Paramètres
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span>📝</span> Rapports
+              </a>
+            </li>
           </ul>
-        ) : (
-          <p>No recent activities</p>
-        )}
+        </nav>
+      </div>
+
+      <div className="dashboard-main">
+        <header className="dashboard-header">
+          <h1>Tableau de bord</h1>
+          <div className="user-profile">
+            <span>Admin</span>
+            <span className="avatar">👤</span>
+          </div>
+        </header>
+
+        <div className="dashboard-content">
+          {/* Intégration de la liste des utilisateurs */}
+          <UserList />
+        </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AdminDashboard;
+export default AdminDashboard
+

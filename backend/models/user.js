@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Enum for user types
+// Enum pour les types d'utilisateurs
 const userTypes = ['parent', 'educator', 'healthcareprofessional'];
 
 const userSchema = new mongoose.Schema({
@@ -11,8 +11,9 @@ const userSchema = new mongoose.Schema({
   adresse: { type: String, required: true },
   numeroTel: { type: Number, required: true },
   userType: { type: String, default: 'user' },
-  
-  // Conditional fields for specific users
+  isActive: { type: Boolean, default: true }, // Champ ajouté pour gérer l'activation
+
+  // Champs conditionnels pour les utilisateurs spécifiques
   relationAvecEnfant: {
     type: String,
     enum: ['père', 'mère'],
@@ -42,6 +43,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: function() { return this.userType === 'parent'; }
   },
+  behavior: {
+    type: String,
+    required: function() { return this.userType === 'parent'; }
+  },
+  behaviordescription: {
+    type: String,
+    required: function() { return this.userType === 'parent'; }
+  },
+
   nombreAnneeExperience: {
     type: Number,
     required: function() { return this.userType === 'educator'; }

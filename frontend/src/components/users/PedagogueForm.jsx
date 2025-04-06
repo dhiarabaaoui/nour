@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { FaUserAlt, FaEnvelope, FaPhoneAlt, FaMapMarkedAlt, FaRegCalendarAlt } from 'react-icons/fa';
-import './users.css';  // N'oublie pas d'ajouter tes styles ici
+import './users.css';  // Assurez-vous d'ajouter votre fichier CSS
 
 function PedagogueForm() {
   const [formData, setFormData] = useState({
@@ -15,25 +16,61 @@ function PedagogueForm() {
     experience: ''
   });
 
+  const [error, setError] = useState(null);  // Pour gérer les erreurs
+  const [success, setSuccess] = useState(null);  // Pour gérer le succès de l'inscription
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic
+    
+    // Vérification que les mots de passe correspondent
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Les mots de passe ne correspondent pas !");
+      setSuccess(null);
       return;
     }
-    console.log(formData);  // Affiche les données dans la console (à remplacer par ta logique de soumission)
+
+    // Réinitialiser les erreurs précédentes
+    setError(null);
+
+    const userData = {
+      name: formData.name,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      address: formData.address,
+      phoneNumber: formData.phoneNumber,
+      country: formData.country,
+      experience: formData.experience
+    };
+
+    try {
+      // Envoi des données à l'API backend pour créer l'utilisateur
+      const response = await axios.post('http://localhost:5000/api/users/create', userData);
+      console.log(response.data);
+
+      // Si la réponse est positive, afficher un message de succès
+      setSuccess('Compte créé avec succès!');
+      setError(null);  // Réinitialiser l'erreur si tout se passe bien
+    } catch (error) {
+      console.error('Erreur lors de la création du compte:', error);
+      setError('Erreur lors de la création du compte, veuillez réessayer.');
+      setSuccess(null);  // Si une erreur survient, réinitialiser le message de succès
+    }
   };
 
   return (
     <div className="form-container">
-      <h2>Pedagogue Form</h2>
+      <h2>Formulaire Pédagogue</h2>
       <form onSubmit={handleSubmit} className="pedagogue-form">
+        {/* Affichage des messages d'erreur et de succès */}
+        {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
+
         <div className="input-field">
           <FaUserAlt />
           <input
@@ -41,7 +78,7 @@ function PedagogueForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="First Name"
+            placeholder="Prénom"
             required
           />
         </div>
@@ -52,7 +89,7 @@ function PedagogueForm() {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            placeholder="Last Name"
+            placeholder="Nom"
             required
           />
         </div>
@@ -73,7 +110,7 @@ function PedagogueForm() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Password"
+            placeholder="Mot de passe"
             required
           />
         </div>
@@ -83,7 +120,7 @@ function PedagogueForm() {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            placeholder="Confirm Password"
+            placeholder="Confirmer le mot de passe"
             required
           />
         </div>
@@ -94,7 +131,7 @@ function PedagogueForm() {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            placeholder="Address"
+            placeholder="Adresse"
             required
           />
         </div>
@@ -105,7 +142,7 @@ function PedagogueForm() {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            placeholder="Phone Number"
+            placeholder="Numéro de téléphone"
             required
           />
         </div>
@@ -115,7 +152,7 @@ function PedagogueForm() {
             name="country"
             value={formData.country}
             onChange={handleChange}
-            placeholder="Country"
+            placeholder="Pays"
             required
           />
         </div>
@@ -126,11 +163,11 @@ function PedagogueForm() {
             name="experience"
             value={formData.experience}
             onChange={handleChange}
-            placeholder="Years of Experience"
+            placeholder="Années d'expérience"
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Soumettre</button>
       </form>
     </div>
   );

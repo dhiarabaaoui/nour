@@ -6,6 +6,8 @@ const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');  // Routes pour utilisateurs
 const AdminProfileRoute = require('./routes/AdminProfileRoute');
 
+const parentRoutes = require('./routes/parentRoutes');
+
 dotenv.config();
 
 const app = express();
@@ -19,8 +21,11 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 app.use("/api/admin", adminRoutes);
-// app.use("/api/user", userRoutes);  // Routes pour utilisateurs
+ app.use("/api/users", userRoutes);  // Routes pour utilisateurs
 app.use("/api/admin/profile", AdminProfileRoute);
+
+app.use('/api/auth/parent', parentRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Backend is running!");
