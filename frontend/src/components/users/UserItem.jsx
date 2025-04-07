@@ -1,55 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-const UserItem = ({ user }) => {
+const UserItem = ({ user, onUpdateUser, onDeleteUser }) => {
+  const [isUpdating, setIsUpdating] = useState(false);
 
-  // Activer/Désactiver l'utilisateur
+  // Activate/Deactivate user
   const handleActivateDeactivate = () => {
     const updatedUser = { ...user, isActive: !user.isActive };
-    axios.put(`/api/admin/users/${user._id}`, updatedUser)
+    setIsUpdating(true); // Set loading state
+
+    axios.put(`/api/users/${user._id}`, updatedUser)
       .then(response => {
-        alert(`Utilisateur ${updatedUser.isActive ? 'activé' : 'désactivé'}`);
-        window.location.reload();
+        alert(`User ${updatedUser.isActive ? 'activated' : 'deactivated'}`);
+        onUpdateUser(updatedUser); // Update parent component with the new user status
       })
       .catch(error => {
-        console.error("Erreur lors de la mise à jour du statut", error);
-      });
+        console.error("Error updating status", error);
+        alert('Error updating the user status');
+      })
+      .finally(() => setIsUpdating(false)); // Reset loading state
   };
 
-  // Supprimer un utilisateur
+  // Delete user
   const handleDelete = () => {
-    if (window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
-      axios.delete(`/api/admin/users/${user._id}`)
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      setIsUpdating(true); // Set loading state
+
+      axios.delete(`/api/users/${user._id}`)
         .then(() => {
-          alert('Utilisateur supprimé');
-          window.location.reload();
+          alert('User deleted');
+          onDeleteUser(user._id); // Update parent component after deletion
         })
         .catch(error => {
-          console.error("Erreur lors de la suppression", error);
-        });
+          console.error("Error deleting user", error);
+          alert('Error deleting the user');
+        })
+        .finally(() => setIsUpdating(false)); // Reset loading state
     }
   };
 
-  // Modifier un utilisateur (redirige vers une page de modification)
+  // Edit user (redirects to edit page)
   const handleEdit = () => {
     window.location.href = `/edit-user/${user._id}`;
   };
 
   return (
     <tr>
-      <td>{user.nom} {user.prenom}</td>
+      <td>{user.firstName} {user.lastName}</td>
       <td>{user.email}</td>
       <td>{user.userType}</td>
-      <td>{user.isActive ? 'Actif' : 'Inactif'}</td>
+      <td>{user.isActive ? 'Active' : 'Inactive'}</td>
       <td>
-        <button onClick={handleActivateDeactivate}>
-          {user.isActive ? 'Désactiver' : 'Activer'}
+        <button onClick={handleActivateDeactivate} disabled={isUpdating}>
+          {user.isActive ? 'Deactivate' : 'Activate'}
         </button>
-        <button onClick={handleEdit}>
-          Modifier
+        <button onClick={handleEdit} disabled={isUpdating}>
+          Edit
         </button>
-        <button onClick={handleDelete}>
-          Supprimer
+        <button onClick={handleDelete} disabled={isUpdating}>
+          Delete
         </button>
       </td>
     </tr>

@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: flex-start; /* Alignement des éléments au début */
   min-height: 100vh;
-  background-color: #120c0c; /* Utilisation d'une seule couleur de fond */
+  background-color: #eee1e1; /* Utilisation d'une seule couleur de fond */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -23,22 +23,14 @@
 }
 
 
-.parent-form-container {
-  background-color: rgba(245, 232, 244, 0.95);
-  backdrop-filter: blur(4px);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  max-width: 450px; /* Slightly increased max-width */
-  width: 100%;
-}
 
-.form-header {
+
+.parent-form-header {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.profile-icon {
+.parent-profile-icon {
   background-color: #615456;
   height: 50px;
   width: 50px;
@@ -46,26 +38,26 @@
   margin: 0 auto 10px;
 }
 
-.form-row {
+.parent-form-row {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.form-group {
+.parent-form-group {
   width: 48%;
   margin-bottom: 15px;
 }
 
-.form-group label {
+.parent-form-group label {
   font-weight: bold;
   display: flex;
   align-items: center;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+.parent-form-group input,
+.parent-form-group textarea,
+.parent-form-group select {
   width: 100%;
   padding: 12px 15px;
   margin-top: 5px;
@@ -79,12 +71,12 @@ textarea {
   resize: vertical;
 }
 
-.error {
+.parent-error {
   color: rgb(244, 154, 210);
   font-size: 14px;
 }
 
-.button-group {
+.parent-button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -99,33 +91,33 @@ button {
   width: 48%;
 }
 
-.signup-btn {
+.parent-signup-btn {
   background: linear-gradient(135deg, #8c738f, #e3bcc1); /* Stylish gradient */
   color: white;
 }
 
-.signup-btn:hover {
+.parent-signup-btn:hover {
   opacity: 0.9;
 }
 
-.cancel-btn {
+.parent-cancel-btn {
   background-color: white;
   color: #e67bec;
   border: 1px solid #f5576c;
 }
 
-.cancel-btn:hover {
+.parent-cancel-btn:hover {
   background-color: #f5576c;
   color: white;
 }
 
 /* Responsive styling for smaller screens */
 @media (max-width: 480px) {
-  .form-group {
+  .parent-button-group {
     width: 100%;
   }
 
-  .button-group {
+  .parent-button-group {
     flex-direction: column;
   }
 
@@ -136,22 +128,22 @@ button {
 }
 
 /* Styling for the new fields */
-.form-group select {
+.parent-form-group select {
   width: 100%;
 }
 
-.form-group textarea {
+.parent-form-group textarea {
   min-height: 100px;
   resize: vertical;
 }
 
-.form-group .behavior-description {
+.parent-form-group .behavior-description {
   margin-top: 10px;
 }
 
-.form-group .relationWithChild,
-.form-group .childLevel,
-.form-group .behavior {
+.parent-form-group .relationWithChild,
+.parent-form-group .childLevel,
+.parent-form-group .behavior {
   width: 100%;
 }
 
@@ -173,4 +165,21 @@ button {
 
 .child-info .form-group {
   width: 100%;
+}
+.parent-success-message {
+  text-align: center;
+  background-color: #e6f9e8;
+  color: #2e7d32;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.parent-error-message {
+  text-align: center;
+  background-color: #ffe6e6;
+  color: #c62828;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
 }

@@ -28,6 +28,10 @@ function ParentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false); // Pour gérer l'état de soumission
   const navigate = useNavigate();
 
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setParentInfo((prev) => ({ ...prev, [name]: value }));
@@ -94,19 +98,29 @@ function ParentForm() {
         });
  
         console.log(response.data);
-        navigate('/success'); // Redirection après inscription réussie
-      } catch (error) {
+        setSuccess('Account created successfully! Redirecting to login...');
+        setError(null);
+        setIsSubmitting(false);
+
+        // ⏳ Rediriger après un petit délai
+        setTimeout(() => {
+         navigate('/');
+       }, 2000);
+
+      }catch (error) {
         console.error('Error during signup:', error);
-        setErrors({ server: 'An error occurred during signup. Please try again.' });
-      } finally {
+        setError('An error occurred during signup. Please try again.');
+        setSuccess(null);
         setIsSubmitting(false);
       }
-    }
-  };
+    };
+  }
 
   return (
     <div className="parent-form-container">
       <h1 className="main-title">Sign Up As A Parent</h1>
+      {success && <p className="success-message">{success}</p>}
+      {error && <p className="error-message">{error}</p>}
       <form className="parent-form" onSubmit={handleSubmit}>
         <div className="form-header">
           <div className="profile-icon"></div>
@@ -209,7 +223,8 @@ function ParentForm() {
           </div>
 
           <div className="form-group">
-            <label>Confirm Password</label>
+            <label>
+              <FaLock/> Password</label>
             <input
               type="password"
               name="parentConfirmPassword"
@@ -223,7 +238,8 @@ function ParentForm() {
         <h3>Child Information</h3>
         <div className="form-row">
           <div className="form-group">
-            <label>Name</label>
+            <label>
+              <FaUser/>Name</label>
             <input
               type="text"
               name="childName"

@@ -4,7 +4,7 @@ import { FaUserAlt } from 'react-icons/fa'; // Example icons
 import './UserTypeSelection.css'; 
 import ParentForm from '../users/ParentForm'; // Corrigé le chemin
 import PedagogueForm from '../users/PedagogueForm'; // Corrigé le chemin
-import HealthProfessionalForm from '../users/HealthProfessionalForm'; // Corrigé le chemin
+import HealthCareForm from '../users/HealthCareForm'; // Corrigé le chemin
 
 function UserTypeSelection() {
   const [userType, setUserType] = useState('');
@@ -40,21 +40,18 @@ function UserTypeSelection() {
         <form onSubmit={handleSubmit}>
           <div className="select-field">
             <FaUserAlt />
-            <select
-              id="user-type"
-              value={userType}
-              onChange={handleUserTypeChange}
-              required
-            >
+            <select id="user-type" value={userType} onChange={handleUserTypeChange} required>
               <option value="">-- Select --</option>
               <option value="parent">Parent</option>
               <option value="educator">Educator</option>
               <option value="health-professional">Health Professional</option>
             </select>
-          </div>
-          <button type="submit" className="submit-button">Submit</button>
+         </div>
+
+  <button type="submit" className="submit-button">Submit</button>
+  <button type="button" onClick={handleBackToLogin} className="back-button">Back to Login</button>
+             
         </form>
-        <button onClick={handleBackToLogin} className="back-button">Back to Login</button>
       </div>
     </div>
   );

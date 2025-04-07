@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import "./users.css"
+import "./UserList.css"
 
 const UserList = () => {
   const [users, setUsers] = useState([])
@@ -11,12 +11,12 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/users", {
+        const response = await axios.get("http://localhost:5000/api/users", {
           headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
         })
         setUsers(response.data)
       } catch (error) {
-        setError("Erreur lors de la récupération des utilisateurs")
+        setError("Error fetching users")
       }
     }
 
@@ -26,7 +26,7 @@ const UserList = () => {
   const handleToggleStatus = async (id, status) => {
     try {
       await axios.patch(
-        `http://localhost:5000/api/users/users/${id}/status`,
+        `http://localhost:5000/api/users/${id}/status`,
         { status: !status },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
@@ -34,29 +34,29 @@ const UserList = () => {
       )
       setUsers(users.map((user) => (user._id === id ? { ...user, status: !status } : user)))
     } catch (error) {
-      setError("Erreur lors de la mise à jour du statut")
+      setError("Error updating user status")
     }
   }
 
   const handleDeleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/users/${id}`, {
+      await axios.delete(`http://localhost:5000/api/users/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
       })
       setUsers(users.filter((user) => user._id !== id))
     } catch (error) {
-      setError("Erreur lors de la suppression de l'utilisateur")
+      setError("Error deleting user")
     }
   }
 
   return (
     <div className="user-list-container">
-      <h2>Liste des utilisateurs</h2>
+      <h2>User List</h2>
       {error && <div className="error">{error}</div>}
       <table>
         <thead>
           <tr>
-            <th>Nom</th>
+            <th>Name</th>
             <th>Email</th>
             <th>Type</th>
             <th>Status</th>
@@ -73,17 +73,17 @@ const UserList = () => {
               <td>{user.userType}</td>
               <td>
                 <span className={`status-badge ${user.status ? "status-active" : "status-inactive"}`}>
-                  {user.status ? "Actif" : "Inactif"}
+                  {user.status ? "Active" : "Inactive"}
                 </span>
               </td>
               <td>
                 <button className="btn-toggle" onClick={() => handleToggleStatus(user._id, user.status)}>
                   <span className="btn-icon">{user.status ? "🔴" : "🟢"}</span>
-                  <span>{user.status ? "Désactiver" : "Activer"}</span>
+                  <span>{user.status ? "Deactivate" : "Activate"}</span>
                 </button>
                 <button className="btn-delete" onClick={() => handleDeleteUser(user._id)}>
                   <span className="btn-icon">🗑️</span>
-                  <span>Supprimer</span>
+                  <span>Delete</span>
                 </button>
               </td>
             </tr>
@@ -95,4 +95,3 @@ const UserList = () => {
 }
 
 export default UserList
-

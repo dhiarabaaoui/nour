@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 import './LoginForm.css';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';  // Correction ici
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -15,16 +15,22 @@ function LoginForm() {
     
     try {
       const response = await axios.post('http://localhost:5000/api/admin/login', { email, password });
-      const token = response.data.token;
 
+      // Log the response data for debugging
+      console.log("Response received:", response.data);
+
+      const token = response.data.token;
       if (token) {
-        const decodedToken = jwtDecode(token);
+        // Decode the token to extract userType if needed
+        const decodedToken = jwtDecode(token);  // Utilisation de jwtDecode ici
+        console.log("Decoded Token:", decodedToken);
+
         if (decodedToken.userType === 'admin') {
           localStorage.setItem('authToken', token);
-          navigate('/admin-dashboard');
+          navigate('/admin-dashboard'); // Redirect to Admin dashboard
         } else if (decodedToken.userType === 'user') {
           localStorage.setItem('authToken', token);
-          navigate('/user-dashboard');
+          navigate('/user-dashboard'); // Redirect to User dashboard
         }
       } else {
         setError('Invalid credentials');
@@ -42,23 +48,20 @@ function LoginForm() {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email ID' required />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
           <div className="form-group">
             <label>Password</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='*******' required />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
 
-          <button type="submit">LOGIN</button>
+          <button type="submit">Sign in</button>
         </form>
 
         {error && <div className="error-message">{error}</div>}
 
         <div className="links">
-          <label>
-            <input type="checkbox"/> Remember me 
-          </label>
           <Link to="/forgot-password">Forgot password?</Link>
           <p>
             You don't have an account? <Link to="/user-type">Create an account</Link>

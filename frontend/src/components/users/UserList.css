@@ -1,0 +1,92 @@
+.user-list-container {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .user-list-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  thead {
+    background-color: #f1f1f1;
+  }
+  
+  thead th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    color: #444;
+  }
+  
+  .status-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  
+  .status-active {
+    background-color: #d4f4dd;
+    color: #22863a;
+  }
+  
+  .status-inactive {
+    background-color: #fde2e2;
+    color: #d73a49;
+  }
+  
+  .btn-toggle,
+  .btn-delete {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn-toggle {
+    background-color: #e6f7ff;
+    color: #0077b6;
+  }
+  
+  .btn-toggle:hover {
+    background-color: #cdefff;
+  }
+  
+  .btn-delete {
+    background-color: #ffe6e6;
+    color: #d7263d;
+  }
+  
+  .btn-delete:hover {
+    background-color: #ffcccc;
+  }
+  
+  .btn-icon {
+    margin-right: 5px;
+  }
+  

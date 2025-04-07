@@ -1,122 +1,164 @@
-/* Style général du dashboard */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f7f9;
-  color: #333;
-}
-
 .admin-dashboard {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #f4f6f8;
+  overflow: hidden;
 }
 
 /* Sidebar */
 .dashboard-sidebar {
   width: 250px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
-  padding: 20px 0;
+  background: #152935;
+  color: #fff;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-logo {
-  padding: 0 20px 20px;
-  font-size: 20px;
-  font-weight: bold;
-  border-bottom: 1px solid #34495e;
-  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #4fc3f7;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .dashboard-nav ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .dashboard-nav li {
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
-.dashboard-nav a {
+.dashboard-nav li a,
+.nav-link {
+  color: #cfd8dc;
+  text-decoration: none;
+  font-size: 16px;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  color: #ecf0f1;
-  text-decoration: none;
-  transition: background-color 0.2s;
+  gap: 12px;
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
-.dashboard-nav a span {
-  margin-right: 10px;
+.dashboard-nav li a:hover,
+.nav-link:hover {
+  background-color: #1b3a4b;
+  color: #ffffff;
 }
 
-.dashboard-nav li.active a,
-.dashboard-nav a:hover {
-  background-color: #34495e;
+.dashboard-nav li.active a {
+  background-color: #4fc3f7;
+  color: #152935;
+  font-weight: bold;
 }
 
-/* Contenu principal */
+/* Main content area */
 .dashboard-main {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(to right, #e3f2fd, #ffffff);
+  padding: 0;
+  overflow-y: auto;
 }
 
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-header h1 {
-  font-size: 24px;
-  font-weight: 500;
+  padding: 20px 30px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  z-index: 1;
 }
 
 .user-profile {
+  position: relative;
+  cursor: pointer;
+  background: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
   display: flex;
   align-items: center;
 }
 
-.user-profile .avatar {
+.user-profile:hover {
+  background-color: #f5f5f5;
+}
+
+.avatar {
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 18px;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  min-width: 140px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+}
+
+.dropdown-menu button {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu button:hover {
+  background-color: #c62828;
+}
+
+/* General styling for nav buttons */
+.nav-link {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+}
+
+.nav-link:hover {
+  background-color: #1b3a4b;
+  color: #fff;
 }
 
 .dashboard-content {
-  flex: 1;
-  padding: 20px 30px;
-  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* change to center if you want vertical centering too */
+  min-height: 100%;
+  padding: 20px;
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .admin-dashboard {
-    flex-direction: column;
-  }
-
-  .dashboard-sidebar {
-    width: 100%;
-    padding: 10px 0;
-  }
-
-  .dashboard-logo {
-    padding: 0 15px 15px;
-    margin-bottom: 10px;
-  }
-
-  .dashboard-header {
-    padding: 10px 15px;
-  }
-
-  .dashboard-content {
-    padding: 15px;
-  }
-}
-

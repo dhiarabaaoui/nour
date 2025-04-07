@@ -1,6 +1,6 @@
 /* Glassmorphism background and center alignment */
-.login-container {
-  display: flex;
+.login-container 
+  {
   justify-content: center;
   align-items: center;
   height: 0;
@@ -35,7 +35,7 @@ body {
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   text-align: center;
-  color: #ffffff;
+  color: #060606;
   border: 1px solid rgba(17, 1, 1, 0.2);
 }
 
@@ -64,7 +64,7 @@ label {
   display: block;
   font-weight: 500;
   margin-bottom: 6px;
-  color: #f1eeeed9;
+  color: erg#040404d9;
 }
 
 input {
@@ -73,7 +73,7 @@ input {
   background: rgba(29, 18, 18, 0.1);
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: #0c0c0c;
   font-size: 16px;
 }
 
@@ -93,11 +93,11 @@ input:focus {
   align-items: center;
   font-size: 13px;
   margin-top: 10px;
-  color: rgba(196, 190, 190, 0.7);
+  color: rgba(11, 10, 10, 0.7);
 }
 
 .links a {
-  color: rgba(173, 172, 172, 0.8);
+  color: rgba(11, 10, 10, 0.8);
   text-decoration: none;
 }
 

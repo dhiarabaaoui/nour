@@ -1,13 +1,16 @@
 import React from 'react'; 
-import LoginForm from './components/login/LoginForm'; // Ajuste le chemin si nécessaire
-import UserTypeSelection from './components/Usertype/UserTypeSelection';
-import ForgotPassword from './components/Password/ForgotPassword'; // Importation du ForgotPassword
-import ParentForm from './components/users/ParentForm';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import LoginForm from './components/login/LoginForm';
+import UserTypeSelection from './components/Usertype/UserTypeSelection';
+import ForgotPassword from './components/Password/ForgotPassword';
+import ParentForm from './components/users/ParentForm';
 import PedagogueForm from './components/users/PedagogueForm';
-import HealthProfessionalForm from './components/users/HealthProfessionalForm';
-import AdminDashboard from './components/AdminDashboard';  // Ajoutez cette ligne pour AdminDashboard
-import UserDashboard from './components/UserDashboard'; // Ajoutez le bon chemin du fichier
+import HealthCareForm from './components/users/HealthCareForm';
+import AdminDashboard from './components/AdminDashboard';
+import UserList from './components/users/UserList';
+import UserDashboard from './components/UserDashboard';
+import ProfileSection from './components/ProfileSection';
 
 function App() {
   return (
@@ -16,11 +19,17 @@ function App() {
         <Route path="/" element={<LoginForm />} />
         <Route path="/user-type" element={<UserTypeSelection />} />
         <Route path="/parent-form" element={<ParentForm />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Ajout de la route ForgotPassword */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/pédagogue-form" element={<PedagogueForm />} />
-        <Route path="/health-professional-form" element={<HealthProfessionalForm />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />  {/* Ajoutez cette ligne pour AdminDashboard */}
-        <Route path="/user-dashboard" element={<UserDashboard />} /> {/* Page pour admin */}
+        <Route path="/health-professional-form" element={<HealthCareForm />} />
+        
+        {/* Admin Dashboard with nested routes */}
+        <Route path="/admin-dashboard" element={<AdminDashboard />}>
+          <Route path="users" element={<UserList />} />
+        </Route>
+
+        <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/profileselection" element={<ProfileSection />} />
       </Routes>
     </Router>
   );

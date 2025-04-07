@@ -1,0 +1,62 @@
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #1e2a38;
+    color: white;
+    padding: 20px;
+  }
+  
+  .sidebar-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  .nav-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .nav-list li {
+    margin-bottom: 20px;
+  }
+  
+  .nav-list a,
+  .logout-button {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .nav-list a:hover,
+  .logout-button:hover {
+    color: #c084fc;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    background: linear-gradient(to right, #dbeafe, #e9d5ff);
+    padding: 40px;
+  }
+  
+  .welcome-section h1 {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+  
+  .profile-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  

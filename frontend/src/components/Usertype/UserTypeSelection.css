@@ -1,74 +1,63 @@
-.user-type-selection-container {
-  display:flex;
-justify-content:  center;
-  /*ign-items: center;
- /*ght: 100vh;
-  padding: 0;*/
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .form-container {
+    display: flex;
+   flex-direction: column;
+   gap: 15px;
+   align-items: center;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .select-field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .select-field svg {
+    margin-bottom: 5px;
+  }
+
+  .submit-button,
+  .back-button {
+    font-size: 15px;
+    padding: 12px;
+  }
 }
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 25px 15px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .select-field select {
+    font-size: 14px;
+  }
+
+  .submit-button,
+  .back-button {
+    font-size: 14px;
+  }
+}
+
 
 .form-container {
-  background: rgba(244, 177, 237, 0.4); /* fond semi-transparent foncé */
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 16px;
-  padding: 40px 30px;
-  justify-content:  center;
-  width:300%;
-  max-width: 1000px;
-  min-height: 300px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(6px);
-}
-
-h1 {
-  font-size: 26px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-p {
-  font-size: 15px;
-  margin-bottom: 20px;
-  color: #5c3b48;
-}
-
-.select-field {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(30, 2, 2, 0.15);
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-bottom: 20px;
-}
-
-.select-field select {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  background-color: rgba(248, 245, 245, 0.9);
-  color: #333;
-  font-size: 14px;
-}
-
-.submit-button,
-.back-button {
+  padding: 40px;
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  background: linear-gradient(to right, #a15b9c, #ec97f0);
-  color: rgb(6, 6, 6);
-  transition: transform 0.2s ease, background 0.3s ease;
-}
-
-.submit-button:hover,
-.back-button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(to right, #00f2fe, #4facfe);
+  max-width: 500px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }

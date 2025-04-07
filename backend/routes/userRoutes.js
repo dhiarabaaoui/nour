@@ -6,7 +6,7 @@ const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 
 // Lister tous les utilisateurs
-router.get("/users", authMiddleware, async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -16,7 +16,7 @@ router.get("/users", authMiddleware, async (req, res) => {
 });
 
 // Activer / Désactiver un utilisateur
-router.patch("/users/:id/status", authMiddleware, async (req, res) => {
+router.patch("/:id/status", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
@@ -29,7 +29,7 @@ router.patch("/users/:id/status", authMiddleware, async (req, res) => {
 });
 
 // Modifier un utilisateur
-router.put("/users/:id", authMiddleware, async (req, res) => {
+router.put("/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const userData = req.body;
 
@@ -42,7 +42,7 @@ router.put("/users/:id", authMiddleware, async (req, res) => {
 });
 
 // Supprimer un utilisateur
-router.delete("/users/:id", authMiddleware, async (req, res) => {
+router.delete("/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -53,4 +53,26 @@ router.delete("/users/:id", authMiddleware, async (req, res) => {
   }
 });
 
+// Récupérer le profil de l'utilisateur connecté
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password"); // exclure le mot de passe
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+// Modifier son propre profil
+router.put("/profile", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true }).select("-password");
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la mise à jour du profil" });
+  }
+});
 module.exports = router;

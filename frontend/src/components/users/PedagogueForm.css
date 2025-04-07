@@ -1,0 +1,146 @@
+:root {
+  --primary-color: #f5576c;
+  --secondary-color: #e67bec;
+  --gradient-start: #8c738f;
+  --gradient-end: #e3bcc1;
+  --bg-color: #f9f4f4;
+  --border-radius: 10px;
+  --font-main: 'Segoe UI', sans-serif;
+  --error-color: #d12f6d;
+  --text-color: #222;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* === Container === */
+.pedagogue-form-container {
+  max-width: 400px;;
+  width:0;
+  margin: 40px auto;
+  background: white;
+  padding: 30px 40px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* === Title === */
+.form-container h2 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+/* === Pédagogue Field Wrapper === */
+.pedagogue-input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.pedagogue-input-field label {
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  font-size: 15px;
+  gap: 8px;
+  align-items: center;
+  display: flex;
+}
+
+.pedagogue-input-field input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.pedagogue-input-field input:focus {
+  border-color: var(--primary-color);
+}
+
+/* === Icon if you use one === */
+.pedagogue-input-field svg {
+  position: absolute;
+  left: 10px;
+  top: 45px;
+  color: #aaa;
+}
+
+.label-icon {
+  color: #f5576c;
+  font-size: 16px;
+}
+
+.pedagogue-input-field input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* === Error Message === */
+.error-message {
+  color: var(--error-color);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* === Success & General Errors === */
+.success-message {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.error {
+  color: var(--error-color);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* === Submit Button === */
+button[type='submit'] {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type='submit']:hover {
+  opacity: 0.9;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 20px;
+  }
+
+  .pedagogue-input-field input {
+    font-size: 14px;
+  }
+
+  button[type='submit'] {
+    font-size: 15px;
+  }
+}

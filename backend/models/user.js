@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },  // Mot de passe
   adresse: { type: String, required: true },  // Adresse du parent
   numeroTel: { type: String, required: true },  // Numéro de téléphone
-  userType: { type: String, default: 'parent' },  // Le type d'utilisateur, ici un parent
+  userType: { type: String, enum: ['parent', 'educator', 'healthcareprofessional'], default: 'parent' },  // Le type d'utilisateur, ici un parent
   isActive: { type: Boolean, default: true },  // Activer ou désactiver le compte
   
   // Champs spécifiques aux parents
@@ -42,9 +42,10 @@ const userSchema = new mongoose.Schema({
     required: function() { return this.userType === 'parent'; }
   },
 
-  // Champs optionnels pour d'autres types d'utilisateurs (par exemple, éducateur ou professionnel de santé)
+  // Champs pour les éducateurs
   nombreAnneeExperience: { 
-    type: Number, 
+    type: Number,
+    min: [0, 'Le nombre d\'années d\'expérience doit être positif'],
     required: function() { return this.userType === 'educator'; }
   },
   specialite: { 
@@ -55,6 +56,5 @@ const userSchema = new mongoose.Schema({
 });
 
 // Créer le modèle basé sur le schéma
-const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);
