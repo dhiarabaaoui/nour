@@ -15,9 +15,11 @@ function LoginForm() {
     
     try {
       const response = await axios.post('http://localhost:5000/api/admin/login', { email, password });
-
+console.log("zeineb");
       // Log the response data for debugging
       console.log("Response received:", response.data);
+      console.log("sahbi"); 
+      console.log("Response received:", response);
 
       const token = response.data.token;
       if (token) {
@@ -28,17 +30,19 @@ function LoginForm() {
         if (decodedToken.userType === 'admin') {
           localStorage.setItem('authToken', token);
           navigate('/admin-dashboard'); // Redirect to Admin dashboard
-        } else if (decodedToken.userType === 'user') {
+        } else if (decodedToken.userType != 'admin') {
           localStorage.setItem('authToken', token);
           navigate('/user-dashboard'); // Redirect to User dashboard
         }
       } else {
         setError('Invalid credentials');
       }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('Invalid credentials or server error');
+    } catch (err) {
+      console.error('Login error:', err);
+      console.error('Response:', err.response?.data); // 💥 Ajoute cette ligne
+      setError(err.response?.data?.message || 'Login failed. Please try again.');
     }
+    
   };
 
   return (
